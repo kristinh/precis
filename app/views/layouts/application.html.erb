@@ -8,8 +8,17 @@
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<%- if user_signed_in? -%>
+  <p>Hey, you're logged in.</p>
+  <%= link_to 'Logout', destroy_user_session_path %>
+
+<%- else -%>
+  <%= link_to 'Login', new_user_session_path %>
+
+<%- end -%>
+
+<p style="color:#0a0;"><%= notice %></p>
+<p style="color:#a00;"><%= alert %></p>
 
 <%= yield %>
 
