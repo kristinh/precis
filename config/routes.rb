@@ -1,6 +1,8 @@
 Precis::Application.routes.draw do
   devise_for :users
 
+  resource :website, :only => [ :edit, :update ]
+
   root :to => "home#index"
 
   # The priority is based upon order of creation:

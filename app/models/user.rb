@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   attr_accessor :name, :opening_hours, :street_address, :phone_number
 
   has_one :restaurant
+  has_one :website
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -25,6 +26,7 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name, :last_name
 
   after_create :build_restaurant
+  after_create :build_website
 
   private
 
@@ -35,5 +37,9 @@ class User < ActiveRecord::Base
       :street_address => street_address,
       :phone_number   => phone_number,
     })
+  end
+
+  def build_website
+    create_website
   end
 end
