@@ -2,11 +2,19 @@ source 'http://rubygems.org'
 
 gem 'rails',  '3.0.4'
 gem 'devise', '1.1.7'
+gem 'mysql2', '0.2.6'
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-ext'
+end
+
+group :production do
+  gem 'unicorn'
+end
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3'
 
 # Use unicorn as the web server
 # gem 'unicorn'
