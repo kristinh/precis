@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110226193103) do
+ActiveRecord::Schema.define(:version => 20110227150041) do
 
   create_table "restaurants", :force => true do |t|
     t.integer  "user_id"
@@ -47,7 +47,9 @@ ActiveRecord::Schema.define(:version => 20110226193103) do
 
   create_table "websites", :force => true do |t|
     t.integer "user_id"
-    t.text    "main_content_area"
+    t.text    "content"
+    t.text    "header"
+    t.text    "footer"
   end
 
   add_index "websites", ["user_id"], :name => "index_websites_on_user_id"

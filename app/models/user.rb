@@ -25,8 +25,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :first_name, :last_name
 
-  after_create :build_restaurant
-  after_create :build_website
+  after_create :build_restaurant, :build_website
 
   private
 
@@ -40,6 +39,6 @@ class User < ActiveRecord::Base
   end
 
   def build_website
-    create_website
+    create_website({ :restaurant => restaurant })
   end
 end

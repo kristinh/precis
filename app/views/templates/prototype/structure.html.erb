@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="This is the prototype">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="<%= favicon_website_path %>">
+  <link rel="stylesheet" href="<%= stylesheet_website_path %>">
+
+  <%- if user_signed_in? -%>
+    <%= stylesheet_link_tag 'precis' %>
+  <%- end -%>
+</head>
+
+<body>
+  <div id="container">
+    <%= @website.header.html_safe %>
+
+    <div id="main">
+      <%= @website.content.html_safe %>
+    </div>
+
+    <%= @website.footer.html_safe %>
+  </div>
+
+  <%- if user_signed_in? -%>
+    <%= render :partial => 'websites/form' %>
+    <%= javascript_include_tag 'jquery.min', 'precis' %>
+  <%- end -%>
+</body>
+</html>
