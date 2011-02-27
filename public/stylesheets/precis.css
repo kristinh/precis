@@ -6,3 +6,7 @@
   background-color: black;
   color: white; cursor: pointer;
 }
+.ui-state-highlight {
+  background: yellow;
+  height: 300px;
+}

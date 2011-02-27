@@ -4,11 +4,28 @@
   
   Precis.addControls = function(section) {
     section = $(section);
+    
+    var tagName = section[0].tagName.toLowerCase();
+    
+    if ( tagName === 'section' ) {
+      section.data({
+        title : $('h2', section).html(),
+        text : $('p', section).html()
+      });
+    } else if ( tagName === 'header' ) {
+      section.data({
+        title : $('h1', section).html()
+      });
+    } else if ( tagName === 'footer' ) {
+      section.data({
+        text : $('footer', section).html()
+      });
+    } else {
+      return; // can only edit sections, header or footer
+    }
+    
     section.data('panel', $('<div>'));
-    section.data( {
-      title : $('h2', section).html(),
-      text : $('p', section).html()
-    });
+        
     var publishButton = $('<span>Publish</span>').click(function(e){
       e.stopPropagation();
       Precis.publish(section);
@@ -16,7 +33,7 @@
     var cancelButton = $('<span>Cancel</span>').click(function(e){
       e.stopPropagation();
       Precis.cancel(section);
-    }); 
+    });
     var deleteButton = $('<span>Delete</span>').click(function(e){
       e.stopPropagation();
       if (confirm('Are you sure, moron?')) {
@@ -25,8 +42,12 @@
     });
     section.data('panel')
       .append(publishButton)
-      .append(cancelButton)
-      .append(deleteButton);
+      .append(cancelButton);
+    
+    if ( tagName === 'section' ) {
+      section.data('panel').append(deleteButton); 
+    }
+
     section.append(section.data('panel'));
     section.data('hasControls',true);
   };
@@ -34,12 +55,13 @@
   Precis.removeControls = function(section) {
     section.data('panel').remove();
     section.data('hasControls',false);
-    $('h2, p', section).removeAttr('contenteditable');
+    $('h1, h2, p', section).removeAttr('contenteditable');
   };
   
   Precis.publish = function (section) {
-    Precis.removeControls(section);
-    
+    if (section) {
+      Precis.removeControls(section);
+    }
     var header = $('header').html();
     var content = (function(){
       var output = '';
@@ -64,18 +86,16 @@
         }
       }
     });
-    
-    console.log(content);
-    
   };
 
   Precis.cancel = function (section) {
     Precis.removeControls(section);
-    $('h2', section).html(section.data('title'));
+    $('h1, h2', section).html(section.data('title'));
     $('p', section).html(section.data('text'));
   };
   
   Precis.ditch = function (section) {
+    Precis.removeControls(section);
     section.remove();
     Precis.publish();
   };
@@ -83,7 +103,7 @@
   Precis.editable = function(section) {
     section = $(section);
     section.click(function(e) {
-      $('h2, p', this).attr('contenteditable','true');
+      $('h1, h2, p', this).attr('contenteditable','true');
       if (!(section.data('hasControls'))) {
         Precis.addControls(section);
       }
@@ -132,6 +152,31 @@
       text : '+49 30 98765432<br>reservations@example.com'
     });
   };
+
+  Precis.Rearrange = (function() {
+    var on = false;
+    return function() {
+      console.log('turn on draggable');
+      if (on) {
+        $('#content').sortable({
+          placeholder: "ui-state-highlight"
+        }); // disable
+        on = false;
+      } else {
+        $('#content').sortable({
+          placeholder: "ui-state-highlight",
+          stop: function(e) {
+            e.stopPropagation();
+          }
+        }); // enable
+        on = true;
+      }
+    };
+  }());
+
+  //Precis.Rearrange = function() {
+  //  
+  //};
   
   var menuHTML  = '';
       menuHTML += ' <div id="precis">';
@@ -142,10 +187,10 @@
       menuHTML += '     <li><span class="control" id="OpeningHours">Hours</span></li>';
       menuHTML += '     <li><span class="control" id="Reservations">Reservations</span></li>';
       menuHTML += '   </ul>';
-      menuHTML += '   <h1>Edit</h1>';
+      menuHTML += '   <h1>Other</h1>';
       menuHTML += '   <ul>';
-      menuHTML += '     <li><span class="control">Title</span></li>';
-      menuHTML += '     <li><span class="control">Description</span></li>';
+      menuHTML += '     <li><span class="control" id="Rearrange">Arrange Sections</span></li>';
+      menuHTML += '     <li><span class="control">Edit Description</span></li>';
       menuHTML += '   </ul>';
       menuHTML += '   <h1>Manage Account</h1>';
       menuHTML += '   <ul>';
@@ -158,10 +203,13 @@
   
   $('#precis span.control').click(function(e){
     var type = $(e.target).attr('id');
-    $('#content').append(Precis[type]());
+    console.log(type);
+    if ( Precis[type] && typeof Precis[type] === 'function' ) {
+      $('#content').append(Precis[type]());
+    }
   });
   
-  $('#content section').each(function(){
+  $('#content section, header').each(function(){
     Precis.editable(this);
   });
   
