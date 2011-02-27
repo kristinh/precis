@@ -19,17 +19,10 @@ set :user, 'beta'
 set :use_sudo, false
 
 namespace :deploy do
-  task :start do
-    sudo "sv start #{application} || true"
-  end
-
-  task :stop do
-    sudo "sv stop #{application} || true"
-  end
-
-  task :restart do
-    sudo "sv restart #{application} || true"
-  end
+  task(:start)   { sudo "sv start #{application} || true"   }
+  task(:stop)    { sudo "sv stop #{application} || true"    }
+  task(:restart) { sudo "sv restart #{application} || true" }
+  task(:status)  { sudo "sv status #{application} || true"  }
 end
 
 task :symlink_configuration do
