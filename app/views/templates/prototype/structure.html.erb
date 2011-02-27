@@ -16,13 +16,17 @@
 
 <body>
   <div id="container">
-    <%= @website.header.html_safe %>
+    <header>
+      <%= @website.header.html_safe %>
+    </header>
 
-    <div id="main">
+    <div id="content">
       <%= @website.content.html_safe %>
     </div>
 
-    <%= @website.footer.html_safe %>
+    <footer>
+      <%= @website.footer.html_safe %>
+    </footer>
   </div>
 
   <%- if user_signed_in? -%>
