@@ -1,0 +1,8 @@
+#precis { font-size: 13px; min-height: 2em; padding-left: 2em; }
+#precis h1 { font-size: 1.25em; float: left; padding-right: 1em; line-height: 2; }
+#precis li { list-style: none; float: left; padding-right: 1em; }
+#precis span.control {
+  padding: 0.5em; display: inline-block;
+  background-color: black;
+  color: white; cursor: pointer;
+}
