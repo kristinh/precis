@@ -60,21 +60,21 @@ h2 {
   margin: 0 auto;
   padding: 0 0 0 30px;
 }
-#main section {
+#content section {
   width: 33%;
   float: left;
 }
-#main h2, #main p {
+#content h2, #content p {
   margin: 0 20px 0 0;
 }
 
 @media (max-width: 750px) {
-  #main section {
+  #content section {
     width: 50%;
   }
 }
 @media (max-width: 480px) {
-  #main section {
+  #content section {
     width: 100%;
   }
 }

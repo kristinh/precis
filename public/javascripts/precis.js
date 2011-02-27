@@ -11,7 +11,7 @@
     });
     var publishButton = $('<span>Publish</span>').click(function(e){
       e.stopPropagation();
-      Precis.publish(section);
+      Precis.publish();
     });
     var cancelButton = $('<span>Cancel</span>').click(function(e){
       e.stopPropagation();
@@ -36,8 +36,19 @@
     section.data('hasControls',false);
   };
   
-  Precis.publish = function (section) {
+  Precis.publish = function () {
     Precis.removeControls(section);
+    $.ajax({
+      url: '/website',
+      type: 'PUT',
+      data: {
+        website : {
+          header : $('header').html(),
+          content : $('#content').html(),
+          footer : $('footer').html()
+        }
+      }
+    });
   };
 
   Precis.cancel = function (section) {
@@ -48,6 +59,7 @@
   
   Precis.ditch = function (section) {
     section.remove();
+    Precis.publish();
   };
   
   Precis.editable = function(section) {
@@ -128,10 +140,10 @@
   
   $('#precis span.control').click(function(e){
     var type = $(e.target).attr('id');
-    $('#main').append(Precis[type]());
+    $('#content').append(Precis[type]());
   });
   
-  $('#main section').each(function(){
+  $('#content section').each(function(){
     Precis.editable(this);
   });
   
