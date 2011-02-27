@@ -24,17 +24,17 @@
       return; // can only edit sections, header or footer
     }
     
-    section.data('panel', $('<div>'));
+    section.data('panel', $('<div class="panel">'));
         
-    var publishButton = $('<span>Publish</span>').click(function(e){
+    var publishButton = $('<span class="control publish">Publish</span>').click(function(e){
       e.stopPropagation();
       Precis.publish(section);
     });
-    var cancelButton = $('<span>Cancel</span>').click(function(e){
+    var cancelButton = $('<span class="control cancel">Cancel</span>').click(function(e){
       e.stopPropagation();
       Precis.cancel(section);
     });
-    var deleteButton = $('<span>Delete</span>').click(function(e){
+    var deleteButton = $('<span class="control delete">Delete</span>').click(function(e){
       e.stopPropagation();
       if (confirm('Are you sure, moron?')) {
         Precis.ditch(section);
@@ -55,6 +55,7 @@
   Precis.removeControls = function(section) {
     section.data('panel').remove();
     section.data('hasControls',false);
+    section.removeClass('editing');
     $('h1, h2, p', section).removeAttr('contenteditable');
   };
   
@@ -105,6 +106,7 @@
     section.click(function(e) {
       $('h1, h2, p', this).attr('contenteditable','true');
       if (!(section.data('hasControls'))) {
+        section.addClass('editing');
         Precis.addControls(section);
       }
     });
