@@ -21,6 +21,18 @@ class Website < ActiveRecord::Base
     "blah"
   end
 
+  def favicon_file
+    File.join(Rails.root, 'app', 'views', 'templates', 'prototype', 'favicon.ico')
+  end
+
+  def stylesheet_file
+    File.join(Rails.root, 'app', 'views', 'templates', 'prototype', 'stylesheet.css')
+  end
+
+  def javascript_file
+    File.join(Rails.root, 'app', 'views', 'templates', 'prototype', 'javascript.js')
+  end
+
   private
 
   def set_defaults

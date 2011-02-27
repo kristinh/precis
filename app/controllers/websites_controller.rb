@@ -2,37 +2,36 @@ class WebsitesController < ApplicationController
   before_filter :authenticate_user!, :find_website
 
   def favicon
-    send_file(
-      File.join(Rails.root, 'app', 'views', 'templates', 'prototype', 'favicon.ico'),
-      :type => 'image/x-icon',
-    )
+    send_file @website.favicon_file, :type => 'image/x-icon'
   end
 
   def stylesheet
-    send_file(
-      File.join(Rails.root, 'app', 'views', 'templates', 'prototype', 'stylesheet.css'),
-      :type => 'text/css',
-    )
+    send_file @website.stylesheet_file, :type => 'text/css'
   end
 
   def javascript
-    send_file(
-      File.join(Rails.root, 'app', 'views', 'templates', 'prototype', 'javascript.js'),
-      :type => 'text/javascript',
-    )
+    send_file @website.javascript_file, :type => 'text/javascript'
   end
 
   def edit
-    render :template => 'templates/prototype/structure', :layout =>  false,
+    render :template => 'templates/prototype/structure', :layout =>  false
   end
 
   def update
     if @website.update_attributes(params[:website])
-      flash[:notice] = 'Updated the website'
-      redirect_to edit_website_path
+      if !request.xhr?
+        flash[:notice] = 'Updated the website'
+        redirect_to edit_website_path
+      else
+        head :ok
+      end
     else
-      flash[:error] = 'Error updating'
-      render :action => :edit
+      if !request.xhr?
+        flash[:error] = 'Error updating'
+        render :action => :edit
+      else
+        head :unprocessable_entity
+      end
     end
   end
 
