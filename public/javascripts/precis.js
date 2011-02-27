@@ -23,9 +23,10 @@
         Precis.ditch(section);
       }
     });
-    section.data('panel').append(publishButton);
-    section.data('panel').append(cancelButton);
-    section.data('panel').append(deleteButton);
+    section.data('panel')
+      .append(publishButton)
+      .append(cancelButton)
+      .append(deleteButton);
     section.append(section.data('panel'));
     section.data('hasControls',true);
   };

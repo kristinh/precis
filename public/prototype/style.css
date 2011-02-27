@@ -19,7 +19,7 @@ a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:tra
 
 body { font:20px sans-serif; *font-size:small; } 
 h1,h2,h3 { font-weight: bold; }
-/* html { overflow-y: scroll; } */
+html { overflow-y: scroll; }
 
 /* a:hover, a:active { outline: none; } */
 a, a:active, a:visited { color: #607890; }
