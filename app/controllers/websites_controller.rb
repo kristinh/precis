@@ -2,15 +2,27 @@ class WebsitesController < ApplicationController
   before_filter :authenticate_user!, :find_website
 
   def favicon
-    send_file @website.favicon_file, :type => 'image/x-icon'
+    send_file(@website.favicon_file,
+      :type => 'image/x-icon',
+      :disposition => 'inline',
+      :status => 200
+    )
   end
 
   def stylesheet
-    send_file @website.stylesheet_file, :type => 'text/css'
+    send_file(@website.stylesheet_file,
+      :type => 'text/css',
+      :disposition => 'inline',
+      :status => 200
+    )
   end
 
   def javascript
-    send_file @website.javascript_file, :type => 'text/javascript'
+    send_file(@website.javascript_file,
+      :type => 'text/javascript',
+      :disposition => 'inline',
+      :status => 200
+    )
   end
 
   def edit
