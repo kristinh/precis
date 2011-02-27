@@ -11,7 +11,7 @@
     });
     var publishButton = $('<span>Publish</span>').click(function(e){
       e.stopPropagation();
-      Precis.publish();
+      Precis.publish(section);
     });
     var cancelButton = $('<span>Cancel</span>').click(function(e){
       e.stopPropagation();
@@ -36,7 +36,7 @@
     section.data('hasControls',false);
   };
   
-  Precis.publish = function () {
+  Precis.publish = function (section) {
     Precis.removeControls(section);
     $.ajax({
       url: '/website',
