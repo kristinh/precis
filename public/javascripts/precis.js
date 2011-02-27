@@ -103,6 +103,29 @@
     });
   };
   
+  var menuHTML  = '';
+      menuHTML += ' <div id="precis">';
+      menuHTML += '   <h1>Add</h1>';
+      menuHTML += '   <ul>';
+      menuHTML += '     <li><span class="control" id="Section">Section</span></li>';
+      menuHTML += '     <li><span class="control" id="Address">Address</span></li>';
+      menuHTML += '     <li><span class="control" id="OpeningHours">Hours</span></li>';
+      menuHTML += '     <li><span class="control" id="Reservations">Reservations</span></li>';
+      menuHTML += '   </ul>';
+      menuHTML += '   <h1>Edit</h1>';
+      menuHTML += '   <ul>';
+      menuHTML += '     <li><span class="control">Title</span></li>';
+      menuHTML += '     <li><span class="control">Description</span></li>';
+      menuHTML += '   </ul>';
+      menuHTML += '   <h1>Manage Account</h1>';
+      menuHTML += '   <ul>';
+      menuHTML += '     <li><span class="control">Change Email Address</span></li>';
+      menuHTML += '     <li><span class="control">Change Password</span></li>';
+      menuHTML += '   </ul>';
+      menuHTML += ' </div>';
+  
+  $('body').prepend(menuHTML);
+  
   $('#precis span.control').click(function(e){
     var type = $(e.target).attr('id');
     $('#main').append(Precis[type]());
