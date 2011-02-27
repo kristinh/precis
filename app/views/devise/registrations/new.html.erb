@@ -6,7 +6,7 @@ as a précis site.</p>
   <%= devise_error_messages! %>
 
   <p>I would like to sign in with my email address <%= f.text_field :email %>
-  and I want my password to be <%= f.password_field :password %> (yes, I'm
+  and I want my password to be <%= f.password_field :password %> (Yes, I'm
   sure, I'll confirm here <%= f.password_field :password_confirmation %>).</p>
 
   <p>My restaurant’s name is <%= f.text_field :name %>. Our opening hours
@@ -14,11 +14,11 @@ as a précis site.</p>
   <%= f.text_field :street_address %>. If you’d like to make a
   reservation, call us at <%= f.text_field :phone_number %>.</p>
 
-  <p>By the way my name is
+  <p>By the way, my name is
     <%= f.text_field :first_name %>
     <%= f.text_field :last_name %>.</p>
 
-  <p><%= f.submit "Show me the site" %></p>
+  <p><%= f.submit "Show me my site" %></p>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
