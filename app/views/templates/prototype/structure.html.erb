@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="<%= stylesheet_website_path %>">
 
   <%- if user_signed_in? -%>
+    <%= csrf_meta_tag %>
     <%= stylesheet_link_tag 'precis' %>
   <%- end -%>
 </head>

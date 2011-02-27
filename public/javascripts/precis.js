@@ -2,6 +2,16 @@
   
   var Precis = {};
   
+  Precis.csrfToken = (function() {
+    var metaTags = document.getElementsByTagName('meta');
+
+    for (var i=0; i < metaTags.length; i += 1) {
+      if (metaTags[i].name == 'csrf-token') {
+        return metaTags[i].getAttribute('content');
+      }
+    }
+  })();
+
   Precis.addControls = function(section) {
     section = $(section);
     section.data('panel', $('<div>'));
@@ -57,6 +67,7 @@
       url: '/website',
       type: 'PUT',
       data: {
+        authenticity_token : Precis.csrfToken,
         website : {
           header : header,
           content : content,
