@@ -34,21 +34,39 @@
   Precis.removeControls = function(section) {
     section.data('panel').remove();
     section.data('hasControls',false);
+    $('h2, p', section).removeAttr('contenteditable');
   };
   
   Precis.publish = function (section) {
     Precis.removeControls(section);
+    
+    var header = $('header').html();
+    var content = (function(){
+      var output = '';
+      $('#content section').each(function(){
+        output += '<section>';
+        output += '<h2>' + $('h2', this).html() + '</h2>';
+        output += '<p>' + $('p', this).html() + '</p>';
+        output += '</section>';
+      });
+      return output;
+    }());
+    var footer = $('footer').html();
+    
     $.ajax({
       url: '/website',
       type: 'PUT',
       data: {
         website : {
-          header : $('header').html(),
-          content : $('#content').html(),
-          footer : $('footer').html()
+          header : header,
+          content : content,
+          footer : footer
         }
       }
     });
+    
+    console.log(content);
+    
   };
 
   Precis.cancel = function (section) {
