@@ -1,0 +1,6 @@
+<%= form_for(@website, :url => website_path) do |f| %>
+  <%= f.text_area :header %>
+  <%= f.text_area :content %>
+  <%= f.text_area :footer %>
+  <%= f.submit 'Save' %>
+<% end %>

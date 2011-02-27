@@ -1,7 +1,13 @@
 Precis::Application.routes.draw do
   devise_for :users
 
-  resource :website, :only => [ :edit, :update ]
+  resource :website, :only => [ :edit, :update ] do
+    member do
+      get :stylesheet
+      get :javascript
+      get :favicon
+    end
+  end
 
   root :to => "home#index"
 
